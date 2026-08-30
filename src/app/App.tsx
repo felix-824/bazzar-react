@@ -1,12 +1,15 @@
-
+import { Route, Routes } from 'react-router-dom'
+import Home from '../pages/Home/Home'
+import Products from '../pages/Products/Products'
 
 
 function App() {
   return (
-    <div>
-      <h1>Bazzar</h1>
-      <p>Fresh groceries delivered to your door.</p>
-    </div>
+    <Routes>
+      <Route path='/' element={<Home />} />
+
+       <Route path='/products' element={<Products />} />
+    </Routes>
   )
 }
 
