@@ -6,6 +6,24 @@ import { clearMember } from '../../features/auth/authSlice'
 import axiosInstance from '../../lib/axios'
 import './Navbar.css'
 
+const API_URL = 'http://localhost:3001'
+
+function getMemberImageUrl(image?: string) {
+   if (!image) {
+      return ''
+   }
+
+   if (image.startsWith('http')) {
+      return image
+   }
+
+   if (image.startsWith('/')) {
+      return `${API_URL}${image}`
+   }
+
+   return `${API_URL}/${image}`
+}
+
 function Navbar () {
    const dispatch = useDispatch()
    const navigate = useNavigate()
@@ -13,6 +31,7 @@ function Navbar () {
    const cartCount = useSelector((state: RootState) =>
      state.cart.items.reduce((total, item) => total + item.quantity, 0)
    )
+   const memberImageUrl = getMemberImageUrl(member?.memberImage)
 
    const handleLogout = async () => {
       try {
@@ -41,6 +60,13 @@ function Navbar () {
             <Link to="/cart">Cart ({cartCount})</Link>
             {member ? (
               <>
+                <span className='navbar-avatar'>
+                  {memberImageUrl ? (
+                    <img src={memberImageUrl} alt={member.memberNick} />
+                  ) : (
+                    member.memberNick.charAt(0).toUpperCase()
+                  )}
+                </span>
                 <span className='navbar-member'>My Page</span>
                 <button type='button' className='login-btn' onClick={handleLogout}>
                    Logout

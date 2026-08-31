@@ -1,5 +1,5 @@
-import type { FormEvent } from 'react'
-import { useState } from 'react'
+import type { ChangeEvent, FormEvent } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
@@ -54,6 +54,22 @@ function Login() {
   const [memberPhone, setMemberPhone] = useState('')
   const [memberPassword, setMemberPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [selectedImage, setSelectedImage] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState('')
+
+  useEffect(() => {
+    if (!selectedImage) {
+      setImagePreview('')
+      return
+    }
+
+    const previewUrl = URL.createObjectURL(selectedImage)
+    setImagePreview(previewUrl)
+
+    return () => {
+      URL.revokeObjectURL(previewUrl)
+    }
+  }, [selectedImage])
 
   const resetForm = () => {
     setFormError('')
@@ -61,6 +77,7 @@ function Login() {
     setMemberPhone('')
     setMemberPassword('')
     setConfirmPassword('')
+    setSelectedImage(null)
     setShowPassword(false)
   }
 
@@ -104,11 +121,16 @@ function Login() {
       return
     }
 
-    const response = await axiosInstance.post('/member/signup', {
-      memberNick: memberNick.trim(),
-      memberPhone: memberPhone.trim(),
-      memberPassword,
-    })
+    const formData = new FormData()
+    formData.append('memberNick', memberNick.trim())
+    formData.append('memberPhone', memberPhone.trim())
+    formData.append('memberPassword', memberPassword)
+
+    if (selectedImage) {
+      formData.append('memberImage', selectedImage)
+    }
+
+    const response = await axiosInstance.post('/member/signup', formData)
     const member = getMemberFromResponse(response.data)
 
     if (member) {
@@ -119,6 +141,25 @@ function Login() {
 
     setActiveTab('login')
     setFormError('Signup successful. Please login with your new account.')
+  }
+
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.currentTarget.files?.[0]
+
+    if (!file) {
+      setSelectedImage(null)
+      return
+    }
+
+    if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+      setSelectedImage(null)
+      setFormError('Please choose a JPG or PNG image.')
+      event.currentTarget.value = ''
+      return
+    }
+
+    setFormError('')
+    setSelectedImage(file)
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -166,6 +207,27 @@ function Login() {
         </div>
 
         <form className="login-form" onSubmit={handleSubmit}>
+          {activeTab === 'signup' && (
+            <div className="signup-avatar">
+              <div className="signup-avatar-preview">
+                {imagePreview ? (
+                  <img src={imagePreview} alt="Selected profile preview" />
+                ) : (
+                  <span>{memberNick.trim().charAt(0).toUpperCase() || 'U'}</span>
+                )}
+              </div>
+
+              <label className="signup-avatar-upload">
+                Upload Photo
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/jpg"
+                  onChange={handleImageChange}
+                />
+              </label>
+            </div>
+          )}
+
           <label>
             Nickname
             <input
