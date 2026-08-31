@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import axiosInstance from '../../lib/axios'
 import { setProducts } from '../../features/products/productSlice'
 import type { RootState } from '../../app/store'
+import ProductCard from '../../components/ProductCard/ProductCard'
+import './Products.css'
 
 function Products() {
   const dispatch = useDispatch()
@@ -26,18 +28,23 @@ function Products() {
     fetchProducts()
   }, [dispatch])
 
-  console.log('Redux products:', products)
-
   return (
-    <div>
-      <h1>Products</h1>
+    <main className="products-page">
+      <div className="products-header">
+        <p>Fresh Products</p>
+        <h1>Shop groceries from Bazzar</h1>
+      </div>
 
-      {products.map((product) => (
-        <p key={product._id}>
-          {product.productName} - {product.productPrice} KRW
-        </p>
-      ))}
-    </div>
+      {products.length > 0 ? (
+        <div className="products-grid">
+          {products.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
+        </div>
+      ) : (
+        <p className="products-empty">No products found.</p>
+      )}
+    </main>
   )
 }
 
