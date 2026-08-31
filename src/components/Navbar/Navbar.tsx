@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../app/store'
 import './Navbar.css'
 
 function Navbar () {
+   const cartCount = useSelector((state: RootState) =>
+     state.cart.items.reduce((total, item) => total + item.quantity, 0)
+   )
+
    return(
      <nav className='navbar'>
 
@@ -15,7 +21,7 @@ function Navbar () {
         </div>
 
           <div className='navbar-actions'>
-            <Link to="/cart">Cart</Link>
+            <Link to="/cart">Cart ({cartCount})</Link>
             <Link to="/login" className='login-btn'>
                Login
             </Link>

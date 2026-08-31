@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 
+import { addToCart } from '../../features/cart/cartSlice'
 import axiosInstance from '../../lib/axios'
 import type { Product } from '../../types/product'
 import './ProductDetail.css'
@@ -40,6 +42,7 @@ function getImageUrl(image?: string) {
 }
 
 function ProductDetail() {
+  const dispatch = useDispatch()
   const { id } = useParams()
   const [product, setProduct] = useState<Product | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -126,6 +129,15 @@ function ProductDetail() {
           {product.productDesc && (
             <p className="product-detail-desc">{product.productDesc}</p>
           )}
+
+          <button
+            type="button"
+            className="product-detail-cart-btn"
+            disabled={product.productLeftCount <= 0}
+            onClick={() => dispatch(addToCart(product))}
+          >
+            {product.productLeftCount > 0 ? 'Add to Cart' : 'Out of Stock'}
+          </button>
         </div>
       </section>
     </main>
