@@ -12,7 +12,7 @@ import './Home.css'
 
 const categories = [
   {
-    title: 'Fruits & Vegetables',
+    title: 'Vegetables',
     value: ProductCollection.FRUIT_VEGETABLE,
     icon: '🥬',
   },
@@ -69,23 +69,23 @@ const newsArticles = [
 
 const benefits = [
   {
-    title: 'Fresh Quality',
-    text: 'Carefully selected groceries',
-    icon: '✓',
+    title: 'Quality Products',
+    text: 'Fresh products selected with care.',
+    icon: '🛡',
   },
   {
     title: 'Fast Delivery',
-    text: 'Quick service to your door',
+    text: 'Get your order delivered quickly.',
     icon: '🚚',
   },
   {
-    title: 'Best Price',
-    text: 'Good value every week',
+    title: 'Best Prices',
+    text: 'Fair prices for everyday groceries.',
     icon: '🏷',
   },
   {
     title: 'Customer Support',
-    text: 'Friendly help when needed',
+    text: 'We are here to help anytime.',
     icon: '🎧',
   },
 ]
@@ -119,8 +119,6 @@ function Home() {
         <section className="hero">
           <div className="home-container hero-container">
             <div className="hero-content">
-              <p className="hero-subtitle">Fresh & Healthy</p>
-
               <h1>Fresh groceries delivered to your door</h1>
 
               <p className="hero-description">
@@ -129,8 +127,26 @@ function Home() {
               </p>
 
               <Link to="/products" className="home-btn">
-                Shop Now
+                Shop Now <span>→</span>
               </Link>
+
+              <div className="hero-benefits">
+                <div>
+                  <span>✓</span>
+                  <p>Best Quality</p>
+                  <small>Fresh products</small>
+                </div>
+                <div>
+                  <span>🚚</span>
+                  <p>Fast Delivery</p>
+                  <small>Quick service</small>
+                </div>
+                <div>
+                  <span>🏷</span>
+                  <p>Best Prices</p>
+                  <small>Save more</small>
+                </div>
+              </div>
             </div>
 
             <div className="hero-image">
@@ -139,11 +155,16 @@ function Home() {
           </div>
         </section>
 
-        <section className="home-section categories">
+        <section className="home-section categories" id="categories">
           <div className="home-container">
-            <div className="section-heading">
-              <p>Browse Categories</p>
+            <div className="section-top">
+              <div className="section-heading section-heading-center">
               <h2>Shop by Category</h2>
+              </div>
+
+              <Link to="/products" className="section-action">
+                View all categories →
+              </Link>
             </div>
 
             <div className="category-list">
@@ -170,7 +191,7 @@ function Home() {
               </div>
 
               <Link to="/products" className="home-outline-btn">
-                View All Products
+                View all products →
               </Link>
             </div>
 
@@ -186,11 +207,56 @@ function Home() {
           </div>
         </section>
 
+        <section className="promo-section">
+          <div className="home-container">
+            <div className="promo-grid">
+              <article className="promo-card">
+                <div>
+                  <p>Fresh Deals</p>
+                  <h2>On your first order</h2>
+                  <span>Use code BAZZAR20</span>
+                  <Link to="/products">Shop Now</Link>
+                </div>
+                <div className="promo-visual">🥬🍎</div>
+              </article>
+
+              <article className="promo-card promo-card-soft">
+                <div>
+                  <p>Delivery</p>
+                  <h2>Fresh groceries to your door</h2>
+                  <span>Simple ordering for everyday products.</span>
+                  <Link to="/products">Learn More</Link>
+                </div>
+                <div className="promo-visual">🛵</div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="benefits-section">
+          <div className="home-container">
+            <div className="section-heading section-heading-center">
+              <h2>Why choose Bazzar?</h2>
+            </div>
+
+            <div className="benefits-list">
+              {benefits.map((benefit) => (
+                <div className="benefit-item" key={benefit.title}>
+                  <span>{benefit.icon}</span>
+                  <div>
+                    <h3>{benefit.title}</h3>
+                    <p>{benefit.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="home-section fresh-news">
           <div className="home-container">
-            <div className="section-heading">
-              <p>Fresh News</p>
-              <h2>Tips for Better Grocery Days</h2>
+            <div className="section-heading section-heading-center">
+              <h2>Fresh News</h2>
             </div>
 
             <div className="news-list">
@@ -211,39 +277,15 @@ function Home() {
           </div>
         </section>
 
-        <section className="discount-section">
-          <div className="home-container">
-            <div className="discount-banner">
-              <div>
-                <p>Special Discount</p>
-                <h2>Fresh Deals This Week</h2>
-                <span>Save up to 20% on selected fresh products.</span>
-              </div>
-
-              <div className="discount-visual" aria-hidden="true">
-                <span>🥬</span>
-                <span>🍎</span>
-                <span>🥖</span>
-              </div>
-
-              <Link to="/products" className="home-btn">
-                Shop Now
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        <section className="benefits-section">
-          <div className="home-container benefits-list">
-            {benefits.map((benefit) => (
-              <div className="benefit-item" key={benefit.title}>
-                <span>{benefit.icon}</span>
-                <div>
-                  <h3>{benefit.title}</h3>
-                  <p>{benefit.text}</p>
-                </div>
-              </div>
-            ))}
+        <section className="about-section" id="about">
+          <div className="home-container about-card">
+            <p>About Bazzar</p>
+            <h2>Fresh everyday grocery shopping made simple.</h2>
+            <span>
+              Bazzar helps customers shop fresh produce, dairy, bakery items,
+              drinks, snacks, and daily essentials with a clean and simple
+              grocery experience.
+            </span>
           </div>
         </section>
       </main>
@@ -262,21 +304,22 @@ function Home() {
             <h3>Shop</h3>
             <Link to="/">Home</Link>
             <Link to="/products">Products</Link>
-            <span>Cart</span>
+            <Link to="/#categories">Categories</Link>
+            <Link to="/cart">Cart</Link>
           </div>
 
           <div className="footer-column">
             <h3>Account</h3>
-            <span>Login</span>
-            <span>My Orders</span>
-            <span>My Profile</span>
+            <Link to="/orders">My Orders</Link>
+            <Link to="/profile">My Profile</Link>
+            <Link to="/login">Login</Link>
           </div>
 
           <div className="footer-column">
-            <h3>Support</h3>
+            <h3>Company</h3>
+            <Link to="/#about">About Us</Link>
             <span>Fresh Quality</span>
             <span>Fast Delivery</span>
-            <span>Customer Support</span>
           </div>
         </div>
 

@@ -1,3 +1,23 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #ffffff;
+}
+
+.top-info-bar {
+  min-height: 34px;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  background-color: #064e2f;
+  color: #d1fae5;
+  font-size: 13px;
+  font-weight: 600;
+}
+
 .navbar {
   height: 72px;
   padding: 0 6%;
@@ -18,7 +38,7 @@
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 24px;
 }
 
 .navbar-menu a,
@@ -33,6 +53,71 @@
 .navbar-actions a:hover,
 .navbar-actions button:hover {
   color: #16a34a;
+}
+
+.navbar-menu a {
+  min-height: 72px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+}
+
+.navbar-menu a:hover {
+  border-bottom-color: #16a34a;
+}
+
+.navbar-search {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-indent: 100px;
+  border-radius: 50%;
+}
+
+.navbar-search::before {
+  content: "⌕";
+  text-indent: 0;
+  color: #1f2937;
+  font-size: 25px;
+}
+
+.navbar-cart {
+  position: relative;
+  min-width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-cart-icon {
+  font-size: 0;
+}
+
+.navbar-cart-icon::before {
+  content: "🛒";
+  font-size: 22px;
+}
+
+.navbar-cart-badge {
+  position: absolute;
+  top: 1px;
+  right: 0;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background-color: #16a34a;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
 }
 
 .login-btn {
@@ -71,4 +156,39 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .top-info-bar {
+    justify-content: center;
+  }
+
+  .top-info-bar span:last-child {
+    display: none;
+  }
+
+  .navbar {
+    height: auto;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .navbar-menu,
+  .navbar-actions {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .navbar-menu a {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .navbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }

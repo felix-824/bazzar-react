@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../../app/store'
 import { clearMember } from '../../features/auth/authSlice'
@@ -45,6 +44,12 @@ function Navbar () {
    }
 
    return(
+     <header className='site-header'>
+       <div className='top-info-bar'>
+          <span>Fresh groceries, happy life.</span>
+          <span>Simple ordering for everyday products</span>
+       </div>
+
      <nav className='navbar'>
 
         <Link to="/" className='navbar-logo'>
@@ -54,10 +59,18 @@ function Navbar () {
         <div className='navbar-menu'>
             <Link to="/">Home</Link>
             <Link to="/products">Products</Link>
+            <Link to="/#categories">Categories</Link>
+            <Link to="/#about">About Us</Link>
         </div>
 
           <div className='navbar-actions'>
-            <Link to="/cart">Cart ({cartCount})</Link>
+            <Link to="/products" className='navbar-search' aria-label='Search products'>
+              Search
+            </Link>
+            <Link to="/cart" className='navbar-cart'>
+              <span className='navbar-cart-icon'>Cart</span>
+              <span className='navbar-cart-badge'>{cartCount}</span>
+            </Link>
             {member ? (
               <>
                 <Link to="/profile" className='navbar-avatar'>
@@ -79,6 +92,7 @@ function Navbar () {
             )}
         </div>
     </nav>
+     </header>
    )
 }
 
