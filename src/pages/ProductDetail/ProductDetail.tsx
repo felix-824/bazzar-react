@@ -45,6 +45,8 @@ function ProductDetail() {
   const dispatch = useDispatch()
   const { id } = useParams()
   const [product, setProduct] = useState<Product | null>(null)
+  const [selectedImage, setSelectedImage] = useState('')
+  const [quantity, setQuantity] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -53,6 +55,8 @@ function ProductDetail() {
         const response = await axiosInstance.get(`/product/${id}`)
 
         setProduct(response.data)
+        setSelectedImage(response.data.productImages?.[0] || '')
+        setQuantity(1)
       } catch (error) {
         console.log('Failed to fetch product:', error)
       } finally {
@@ -87,20 +91,61 @@ function ProductDetail() {
     )
   }
 
-  const imageUrl = getImageUrl(product.productImages?.[0])
+  const productImages = product.productImages.filter(Boolean)
+  const imageUrl = getImageUrl(selectedImage || productImages[0])
+  const canIncreaseQuantity = quantity < product.productLeftCount
+  const canAddToCart = product.productLeftCount > 0
+
+  const handleDecreaseQuantity = () => {
+    setQuantity((currentQuantity) => Math.max(1, currentQuantity - 1))
+  }
+
+  const handleIncreaseQuantity = () => {
+    setQuantity((currentQuantity) =>
+      Math.min(product.productLeftCount, currentQuantity + 1)
+    )
+  }
+
+  const handleAddToCart = () => {
+    dispatch(addToCart({ product, quantity }))
+  }
 
   return (
     <main className="product-detail-page">
       <Link className="product-detail-back" to="/products">
-        Back to Products
+        &larr; Back to Products
       </Link>
 
       <section className="product-detail">
-        <div className="product-detail-image">
-          {imageUrl ? (
-            <img src={imageUrl} alt={product.productName} />
-          ) : (
-            <span>No image</span>
+        <div className="product-detail-gallery">
+          <div className="product-detail-image">
+            {imageUrl ? (
+              <img src={imageUrl} alt={product.productName} />
+            ) : (
+              <span>No image</span>
+            )}
+          </div>
+
+          {productImages.length > 1 && (
+            <div className="product-detail-thumbnails">
+              {productImages.map((image) => (
+                <button
+                  key={image}
+                  type="button"
+                  className={
+                    selectedImage === image
+                      ? 'product-detail-thumb active'
+                      : 'product-detail-thumb'
+                  }
+                  onClick={() => setSelectedImage(image)}
+                >
+                  <img
+                    src={getImageUrl(image)}
+                    alt={`${product.productName} thumbnail`}
+                  />
+                </button>
+              ))}
+            </div>
           )}
         </div>
 
@@ -116,28 +161,51 @@ function ProductDetail() {
           </p>
 
           <div className="product-detail-meta">
-            <p>
-              <strong>Volume:</strong> {product.productVolume}{' '}
-              {formatLabel(product.productUnit)}
-            </p>
+            <div>
+              <span>Volume</span>
+              <strong>
+                {product.productVolume} {formatLabel(product.productUnit)}
+              </strong>
+            </div>
 
-            <p>
-              <strong>Available:</strong> {product.productLeftCount}
-            </p>
+            <div>
+              <span>Available</span>
+              <strong>{product.productLeftCount}</strong>
+            </div>
           </div>
 
           {product.productDesc && (
             <p className="product-detail-desc">{product.productDesc}</p>
           )}
 
-          <button
-            type="button"
-            className="product-detail-cart-btn"
-            disabled={product.productLeftCount <= 0}
-            onClick={() => dispatch(addToCart(product))}
-          >
-            {product.productLeftCount > 0 ? 'Add to Cart' : 'Out of Stock'}
-          </button>
+          <div className="product-detail-actions">
+            <div className="product-detail-quantity">
+              <button
+                type="button"
+                disabled={quantity <= 1 || !canAddToCart}
+                onClick={handleDecreaseQuantity}
+              >
+                -
+              </button>
+              <span>{quantity}</span>
+              <button
+                type="button"
+                disabled={!canIncreaseQuantity || !canAddToCart}
+                onClick={handleIncreaseQuantity}
+              >
+                +
+              </button>
+            </div>
+
+            <button
+              type="button"
+              className="product-detail-cart-btn"
+              disabled={!canAddToCart}
+              onClick={handleAddToCart}
+            >
+              {canAddToCart ? 'Add to Cart' : 'Out of Stock'}
+            </button>
+          </div>
         </div>
       </section>
     </main>

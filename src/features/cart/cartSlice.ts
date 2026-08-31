@@ -10,28 +10,45 @@ interface CartState {
   items: CartItem[]
 }
 
+interface AddToCartPayload {
+  product: Product
+  quantity?: number
+}
+
 const initialState: CartState = {
   items: [],
+}
+
+function isAddToCartPayload(
+  value: Product | AddToCartPayload
+): value is AddToCartPayload {
+  return 'product' in value
 }
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<Product>) => {
-      const product = action.payload
+    addToCart: (state, action: PayloadAction<Product | AddToCartPayload>) => {
+      const payload = action.payload
+      const product = isAddToCartPayload(payload) ? payload.product : payload
+      const requestedQuantity = isAddToCartPayload(payload)
+        ? payload.quantity || 1
+        : 1
+      const quantityToAdd = Math.max(1, requestedQuantity)
       const cartItem = state.items.find(
         (item) => item.product._id === product._id
       )
 
       if (cartItem) {
-        if (cartItem.quantity < product.productLeftCount) {
-          cartItem.quantity += 1
-        }
+        cartItem.quantity = Math.min(
+          cartItem.quantity + quantityToAdd,
+          product.productLeftCount
+        )
       } else if (product.productLeftCount > 0) {
         state.items.push({
           product,
-          quantity: 1,
+          quantity: Math.min(quantityToAdd, product.productLeftCount),
         })
       }
     },
