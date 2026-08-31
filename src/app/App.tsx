@@ -8,6 +8,7 @@ import Cart from '../pages/Cart/Cart';
 import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
 import Orders from '../pages/Orders/Orders';
+import Profile from '../pages/Profile/Profile';
 import ProductDetail from '../pages/ProductDetail/ProductDetail';
 import Products from '../pages/Products/Products';
 import type { Member } from '../types/member';
@@ -66,6 +67,8 @@ function App() {
         <Route path='/login' element={<Login />} />
 
         <Route path='/orders' element={<Orders />} />
+
+        <Route path='/profile' element={<Profile />} />
       </Routes>
     </>
   );

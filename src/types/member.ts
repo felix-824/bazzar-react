@@ -3,8 +3,11 @@ export interface Member {
   memberNick: string
   memberPhone?: string
   memberImage?: string
+  memberAddress?: string
+  memberDesc?: string
   memberType?: string
   memberStatus?: string
+  memberPoints?: number
   createdAt?: string
   updatedAt?: string
 }

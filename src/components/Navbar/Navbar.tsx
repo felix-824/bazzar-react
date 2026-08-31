@@ -60,13 +60,13 @@ function Navbar () {
             <Link to="/cart">Cart ({cartCount})</Link>
             {member ? (
               <>
-                <span className='navbar-avatar'>
+                <Link to="/profile" className='navbar-avatar'>
                   {memberImageUrl ? (
                     <img src={memberImageUrl} alt={member.memberNick} />
                   ) : (
                     member.memberNick.charAt(0).toUpperCase()
                   )}
-                </span>
+                </Link>
                 <Link to="/orders">My Orders</Link>
                 <button type='button' className='login-btn' onClick={handleLogout}>
                    Logout
