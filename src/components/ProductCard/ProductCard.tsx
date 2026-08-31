@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { Product } from '../../types/product'
 import './ProductCard.css'
@@ -41,10 +42,20 @@ function getImageUrl(image?: string) {
 }
 
 function ProductCard({ product }: ProductCardProps) {
+  const [liked, setLiked] = useState(false)
   const imageUrl = getImageUrl(product.productImages?.[0])
 
   return (
     <article className="product-card">
+      <button
+        type="button"
+        className={liked ? 'product-card-heart liked' : 'product-card-heart'}
+        aria-label={liked ? 'Remove from wishlist' : 'Add to wishlist'}
+        onClick={() => setLiked(!liked)}
+      >
+        {liked ? '♥' : '♡'}
+      </button>
+
       <div className="product-card-image">
         {imageUrl ? (
           <img src={imageUrl} alt={product.productName} />
@@ -59,6 +70,10 @@ function ProductCard({ product }: ProductCardProps) {
         </p>
 
         <h3>{product.productName}</h3>
+
+        <p className="product-card-rating">
+          <span>★</span> 4.8
+        </p>
 
         <p className="product-card-volume">
           {product.productVolume} {formatLabel(product.productUnit)}
