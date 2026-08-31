@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import type { RootState } from '../../app/store'
+import axiosInstance from '../../lib/axios'
 import {
+  clearCart,
   decreaseQuantity,
   increaseQuantity,
   removeFromCart,
@@ -44,9 +47,31 @@ function getImageUrl(image?: string) {
   return `${API_URL}/${image}`
 }
 
+function getErrorMessage(error: unknown) {
+  if (typeof error === 'object' && error !== null && 'response' in error) {
+    const response = error.response as {
+      data?: {
+        message?: string
+        error?: string
+      }
+    }
+
+    return (
+      response.data?.message ||
+      response.data?.error ||
+      'Could not create order. Please check your cart and try again.'
+    )
+  }
+
+  return 'Could not create order. Please try again.'
+}
+
 function Cart() {
   const dispatch = useDispatch()
   const cartItems = useSelector((state: RootState) => state.cart.items)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [orderMessage, setOrderMessage] = useState('')
+  const [orderError, setOrderError] = useState('')
 
   const subtotal = cartItems.reduce(
     (total, item) => total + item.product.productPrice * item.quantity,
@@ -54,11 +79,43 @@ function Cart() {
   )
   const total = subtotal + DELIVERY_FEE
 
+  const handleProceedToOrder = async () => {
+    if (cartItems.length === 0 || isSubmitting) {
+      return
+    }
+
+    setIsSubmitting(true)
+    setOrderMessage('')
+    setOrderError('')
+
+    const payload = {
+      orderItems: cartItems.map((item) => ({
+        productId: item.product._id,
+        itemQuantity: item.quantity,
+      })),
+    }
+
+    try {
+      await axiosInstance.post('/order/create', payload)
+
+      dispatch(clearCart())
+      setOrderMessage('Order created successfully.')
+    } catch (error) {
+      console.log('Failed to create order:', error)
+      setOrderError(getErrorMessage(error))
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   if (cartItems.length === 0) {
     return (
       <main className="cart-page">
         <section className="cart-empty">
-          <h1>Your cart is empty</h1>
+          <h1>{orderMessage ? 'Order created' : 'Your cart is empty'}</h1>
+          {orderMessage && (
+            <p className="cart-success-message">{orderMessage}</p>
+          )}
           <p>Add fresh groceries to your cart and come back here.</p>
           <Link to="/products">Continue Shopping</Link>
         </section>
@@ -155,9 +212,15 @@ function Cart() {
             <strong>{formatPrice(total)}</strong>
           </div>
 
-          <button type="button" disabled>
-            Proceed to Order
+          <button
+            type="button"
+            disabled={isSubmitting}
+            onClick={handleProceedToOrder}
+          >
+            {isSubmitting ? 'Creating Order...' : 'Proceed to Order'}
           </button>
+
+          {orderError && <p className="cart-order-error">{orderError}</p>}
         </aside>
       </section>
     </main>

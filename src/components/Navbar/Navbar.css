@@ -22,19 +22,32 @@
 }
 
 .navbar-menu a,
-.navbar-actions a {
+.navbar-actions a,
+.navbar-actions button,
+.navbar-member {
   font-size: 15px;
   font-weight: 500;
 }
 
 .navbar-menu a:hover,
-.navbar-actions a:hover {
+.navbar-actions a:hover,
+.navbar-actions button:hover {
   color: #16a34a;
 }
 
 .login-btn {
   padding: 10px 20px;
+  border: 0;
   border-radius: 8px;
   background-color: #16a34a;
   color: white !important;
+}
+
+.navbar-actions button.login-btn:hover {
+  color: #ffffff;
+  background-color: #15803d;
+}
+
+.navbar-member {
+  color: #374151;
 }

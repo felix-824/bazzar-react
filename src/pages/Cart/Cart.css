@@ -202,6 +202,22 @@
   opacity: 0.75;
 }
 
+.cart-order-error,
+.cart-success-message {
+  margin: 14px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.cart-order-error {
+  color: #dc2626;
+}
+
+.cart-success-message {
+  color: #16a34a;
+}
+
 .cart-empty {
   max-width: 620px;
   padding: 46px 34px;
