@@ -7,6 +7,7 @@ import axiosInstance from '../lib/axios';
 import Cart from '../pages/Cart/Cart';
 import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
+import Orders from '../pages/Orders/Orders';
 import ProductDetail from '../pages/ProductDetail/ProductDetail';
 import Products from '../pages/Products/Products';
 import type { Member } from '../types/member';
@@ -63,6 +64,8 @@ function App() {
         <Route path='/cart' element={<Cart />} />
 
         <Route path='/login' element={<Login />} />
+
+        <Route path='/orders' element={<Orders />} />
       </Routes>
     </>
   );

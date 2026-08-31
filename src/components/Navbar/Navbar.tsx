@@ -67,7 +67,7 @@ function Navbar () {
                     member.memberNick.charAt(0).toUpperCase()
                   )}
                 </span>
-                <span className='navbar-member'>My Page</span>
+                <Link to="/orders">My Orders</Link>
                 <button type='button' className='login-btn' onClick={handleLogout}>
                    Logout
                 </button>
