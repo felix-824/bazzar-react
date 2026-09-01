@@ -189,7 +189,7 @@ function Cart() {
                   aria-label={`Remove ${item.product.productName}`}
                   onClick={() => dispatch(removeFromCart(item.product._id))}
                 >
-                  Remove
+                  <span aria-hidden="true"></span>
                 </button>
               </div>
             )
