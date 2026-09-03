@@ -1,12 +1,12 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import type { Product } from '../../types/product'
 
-interface CartItem {
+export interface CartItem {
   product: Product
   quantity: number
 }
 
-interface CartState {
+export interface CartState {
   items: CartItem[]
 }
 

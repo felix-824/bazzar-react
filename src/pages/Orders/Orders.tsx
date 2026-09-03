@@ -25,6 +25,26 @@ function formatPrice(price?: number) {
   }).format(price || 0)
 }
 
+function formatOrderDate(date?: string) {
+  if (!date) {
+    return 'Date unavailable'
+  }
+
+  const parsedDate = new Date(date)
+
+  if (Number.isNaN(parsedDate.getTime())) {
+    return 'Date unavailable'
+  }
+
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  }).format(parsedDate)
+}
+
 function getImageUrl(image?: string) {
   if (!image) {
     return ''
@@ -170,7 +190,7 @@ function Orders() {
                   <div className="order-card-top">
                     <div>
                       <h2>Order #{order._id.slice(-8).toUpperCase()}</h2>
-                      <p>{order.createdAt || order.updatedAt || 'Date unavailable'}</p>
+                      <p>{formatOrderDate(order.createdAt || order.updatedAt)}</p>
                     </div>
 
                     <span className={`order-status ${order.orderStatus.toLowerCase()}`}>

@@ -6,10 +6,10 @@
 }
 
 .top-info-bar {
-  min-height: 34px;
+  min-height: 36px;
   background-color: #064e2f;
   color: #d1fae5;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .top-info-content {
-  min-height: 34px;
+  min-height: 36px;
 }
 
 .navbar {
@@ -33,12 +33,12 @@
 }
 
 .navbar-content {
-  min-height: 70px;
+  min-height: 88px;
   background-color: #ffffff;
 }
 
 .navbar-logo {
-  font-size: 29px;
+  font-size: 38px;
   font-weight: 700;
   color: #16a34a;
 }
@@ -47,14 +47,14 @@
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 26px;
 }
 
 .navbar-menu a,
 .navbar-actions a,
 .navbar-actions button,
 .navbar-member {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .navbar-menu a {
-  min-height: 70px;
+  min-height: 88px;
   display: inline-flex;
   align-items: center;
   border-bottom: 2px solid transparent;
@@ -77,8 +77,8 @@
 
 .navbar-cart {
   position: relative;
-  min-width: 42px;
-  height: 42px;
+  min-width: 46px;
+  height: 46px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -90,15 +90,15 @@
 
 .navbar-cart-icon::before {
   content: "🛒";
-  font-size: 22px;
+  font-size: 25px;
 }
 
 .navbar-cart-badge {
   position: absolute;
   top: 1px;
   right: 0;
-  min-width: 19px;
-  height: 19px;
+  min-width: 21px;
+  height: 21px;
   padding: 0 5px;
   display: inline-flex;
   align-items: center;
@@ -106,12 +106,12 @@
   border-radius: 999px;
   background-color: #16a34a;
   color: #ffffff;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
 }
 
 .login-btn {
-  padding: 10px 22px;
+  padding: 12px 28px;
   border: 0;
   border-radius: 8px;
   background-color: #16a34a;
@@ -128,8 +128,8 @@
 }
 
 .navbar-avatar {
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -138,7 +138,7 @@
   border-radius: 50%;
   background-color: #dcfce7;
   color: #15803d;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -146,6 +146,51 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+@media (max-width: 1440px) {
+  .navbar-content {
+    min-height: 78px;
+  }
+
+  .navbar-logo {
+    font-size: 34px;
+  }
+
+  .navbar-menu,
+  .navbar-actions {
+    gap: 24px;
+  }
+
+  .navbar-menu a,
+  .navbar-actions a,
+  .navbar-actions button,
+  .navbar-member {
+    font-size: 16px;
+  }
+
+  .navbar-menu a {
+    min-height: 78px;
+  }
+
+  .navbar-cart {
+    min-width: 42px;
+    height: 42px;
+  }
+
+  .navbar-cart-icon::before {
+    font-size: 23px;
+  }
+
+  .login-btn {
+    padding: 11px 24px;
+  }
+
+  .navbar-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+  }
 }
 
 @media (max-width: 900px) {
