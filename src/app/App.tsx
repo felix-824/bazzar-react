@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 import { setMember } from '../features/auth/authSlice';
 import axiosInstance from '../lib/axios';
@@ -12,6 +13,7 @@ import Profile from '../pages/Profile/Profile';
 import ProductDetail from '../pages/ProductDetail/ProductDetail';
 import Products from '../pages/Products/Products';
 import type { Member } from '../types/member';
+import '../App.css';
 
 function getMemberFromResponse(data: unknown): Member | null {
   if (typeof data !== 'object' || data === null) {
@@ -33,6 +35,8 @@ function getMemberFromResponse(data: unknown): Member | null {
 
 function App() {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const shouldShowFooter = location.pathname !== '/login';
 
   useEffect(() => {
     const restoreSession = async () => {
@@ -52,25 +56,29 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="app-shell">
       <Navbar />
 
-      <Routes>
-        <Route path='/'element={<Home />}  />
+      <div className="app-content">
+        <Routes>
+          <Route path='/'element={<Home />}  />
 
-        <Route path='/products' element={<Products />} />
+          <Route path='/products' element={<Products />} />
 
-        <Route path='/products/:id' element={<ProductDetail />} />
+          <Route path='/products/:id' element={<ProductDetail />} />
 
-        <Route path='/cart' element={<Cart />} />
+          <Route path='/cart' element={<Cart />} />
 
-        <Route path='/login' element={<Login />} />
+          <Route path='/login' element={<Login />} />
 
-        <Route path='/orders' element={<Orders />} />
+          <Route path='/orders' element={<Orders />} />
 
-        <Route path='/profile' element={<Profile />} />
-      </Routes>
-    </>
+          <Route path='/profile' element={<Profile />} />
+        </Routes>
+      </div>
+
+      {shouldShowFooter && <Footer />}
+    </div>
   );
 }
 

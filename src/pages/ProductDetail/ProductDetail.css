@@ -1,6 +1,5 @@
 .product-detail-page {
   width: 100%;
-  min-height: calc(100vh - 72px);
   padding: 32px 6% 64px;
   background-color: #ffffff;
 }

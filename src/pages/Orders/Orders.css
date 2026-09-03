@@ -1,6 +1,5 @@
 .orders-page {
   width: 100%;
-  min-height: calc(100vh - 72px);
   padding: 42px 6%;
   background-color: #f7fff9;
 }

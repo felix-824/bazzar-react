@@ -1,5 +1,6 @@
+import type { KeyboardEvent, MouseEvent } from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import type { Product } from '../../types/product'
 import './ProductCard.css'
 
@@ -42,16 +43,45 @@ function getImageUrl(image?: string) {
 }
 
 function ProductCard({ product }: ProductCardProps) {
+  const navigate = useNavigate()
   const [liked, setLiked] = useState(false)
   const imageUrl = getImageUrl(product.productImages?.[0])
+  const productPath = `/products/${product._id}`
+
+  const openProductDetail = () => {
+    navigate(productPath)
+  }
+
+  const handleCardKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.target !== event.currentTarget) {
+      return
+    }
+
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      openProductDetail()
+    }
+  }
+
+  const handleHeartClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation()
+    setLiked(!liked)
+  }
 
   return (
-    <article className="product-card">
+    <article
+      className="product-card"
+      role="link"
+      tabIndex={0}
+      aria-label={`View ${product.productName}`}
+      onClick={openProductDetail}
+      onKeyDown={handleCardKeyDown}
+    >
       <button
         type="button"
         className={liked ? 'product-card-heart liked' : 'product-card-heart'}
         aria-label={liked ? 'Remove from wishlist' : 'Add to wishlist'}
-        onClick={() => setLiked(!liked)}
+        onClick={handleHeartClick}
       >
         {liked ? '♥' : '♡'}
       </button>
@@ -83,7 +113,11 @@ function ProductCard({ product }: ProductCardProps) {
           {formatPrice(product.productPrice)}
         </p>
 
-        <Link className="product-card-link" to={`/products/${product._id}`}>
+        <Link
+          className="product-card-link"
+          to={productPath}
+          onClick={(event) => event.stopPropagation()}
+        >
           View Product
         </Link>
       </div>
