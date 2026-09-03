@@ -46,11 +46,14 @@ function Navbar () {
    return(
      <header className='site-header'>
        <div className='top-info-bar'>
+        <div className='top-info-content'>
           <span>Fresh groceries, happy life.</span>
           <span>Simple ordering for everyday products</span>
+        </div>
        </div>
 
      <nav className='navbar'>
+      <div className='navbar-content'>
 
         <Link to="/" className='navbar-logo'>
            Bazzar
@@ -59,14 +62,11 @@ function Navbar () {
         <div className='navbar-menu'>
             <Link to="/">Home</Link>
             <Link to="/products">Products</Link>
-            <Link to="/#categories">Categories</Link>
-            <Link to="/#about">About Us</Link>
+            {member && <Link to="/orders">My Orders</Link>}
+            {member && <Link to="/profile">My Page</Link>}
         </div>
 
           <div className='navbar-actions'>
-            <Link to="/products" className='navbar-search' aria-label='Search products'>
-              Search
-            </Link>
             <Link to="/cart" className='navbar-cart'>
               <span className='navbar-cart-icon'>Cart</span>
               <span className='navbar-cart-badge'>{cartCount}</span>
@@ -80,7 +80,6 @@ function Navbar () {
                     member.memberNick.charAt(0).toUpperCase()
                   )}
                 </Link>
-                <Link to="/orders">My Orders</Link>
                 <button type='button' className='login-btn' onClick={handleLogout}>
                    Logout
                 </button>
@@ -91,6 +90,7 @@ function Navbar () {
               </Link>
             )}
         </div>
+      </div>
     </nav>
      </header>
    )

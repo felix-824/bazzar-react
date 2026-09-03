@@ -1,11 +1,11 @@
 .footer {
-  padding: 42px 6% 20px;
+  padding: 40px 0 20px;
   background-color: #064e2f;
   color: #ffffff;
 }
 
 .footer-container {
-  width: min(1180px, 100%);
+  width: var(--site-container-width);
   margin: 0 auto;
 }
 
@@ -22,7 +22,7 @@
 .footer-brand h2 {
   margin: 0 0 10px;
   color: #ffffff;
-  font-size: 30px;
+  font-size: 31px;
 }
 
 .footer-brand p {
@@ -55,7 +55,7 @@
 }
 
 .footer-copy {
-  width: min(1180px, 100%);
+  width: var(--site-container-width);
   margin: 32px auto 0;
   padding-top: 18px;
   border-top: 1px solid rgba(220, 252, 231, 0.18);

@@ -7,29 +7,38 @@
 
 .top-info-bar {
   min-height: 34px;
-  padding: 0 6%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
   background-color: #064e2f;
   color: #d1fae5;
   font-size: 13px;
   font-weight: 600;
 }
 
-.navbar {
-  height: 72px;
-  padding: 0 6%;
+.top-info-content,
+.navbar-content {
+  width: var(--site-container-width);
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 18px;
+}
+
+.top-info-content {
+  min-height: 34px;
+}
+
+.navbar {
   border-bottom: 1px solid #e5e7eb;
   background-color: #ffffff;
 }
 
+.navbar-content {
+  min-height: 70px;
+  background-color: #ffffff;
+}
+
 .navbar-logo {
-  font-size: 28px;
+  font-size: 29px;
   font-weight: 700;
   color: #16a34a;
 }
@@ -38,7 +47,7 @@
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 22px;
 }
 
 .navbar-menu a,
@@ -46,7 +55,7 @@
 .navbar-actions button,
 .navbar-member {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .navbar-menu a:hover,
@@ -56,7 +65,7 @@
 }
 
 .navbar-menu a {
-  min-height: 72px;
+  min-height: 70px;
   display: inline-flex;
   align-items: center;
   border-bottom: 2px solid transparent;
@@ -64,25 +73,6 @@
 
 .navbar-menu a:hover {
   border-bottom-color: #16a34a;
-}
-
-.navbar-search {
-  width: 38px;
-  height: 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  white-space: nowrap;
-  text-indent: 100px;
-  border-radius: 50%;
-}
-
-.navbar-search::before {
-  content: "⌕";
-  text-indent: 0;
-  color: #1f2937;
-  font-size: 25px;
 }
 
 .navbar-cart {
@@ -121,7 +111,7 @@
 }
 
 .login-btn {
-  padding: 10px 20px;
+  padding: 10px 22px;
   border: 0;
   border-radius: 8px;
   background-color: #16a34a;
@@ -159,15 +149,15 @@
 }
 
 @media (max-width: 900px) {
-  .top-info-bar {
+  .top-info-content {
     justify-content: center;
   }
 
-  .top-info-bar span:last-child {
+  .top-info-content span:last-child {
     display: none;
   }
 
-  .navbar {
+  .navbar-content {
     height: auto;
     padding-top: 14px;
     padding-bottom: 14px;
@@ -187,7 +177,7 @@
 }
 
 @media (max-width: 560px) {
-  .navbar {
+  .navbar-content {
     align-items: flex-start;
     flex-direction: column;
   }

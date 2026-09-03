@@ -1,12 +1,12 @@
 .cart-page {
   width: 100%;
-  padding: 34px 6% 46px;
+  padding: 34px 0 46px;
   background-color: #f8fffa;
 }
 
 .cart-panel,
 .cart-empty {
-  width: min(1140px, 100%);
+  width: var(--site-container-width);
   margin: 0 auto;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
@@ -344,7 +344,7 @@
 
 @media (max-width: 560px) {
   .cart-page {
-    padding: 28px 5%;
+    padding: 28px 0;
   }
 
   .cart-panel,

@@ -1,12 +1,12 @@
 .orders-page {
   width: 100%;
-  padding: 42px 6%;
+  padding: 42px 0;
   background-color: #f7fff9;
 }
 
 .orders-panel,
 .orders-message-card {
-  width: min(1080px, 100%);
+  width: var(--site-container-width);
   margin: 0 auto;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -247,7 +247,7 @@
 
 @media (max-width: 540px) {
   .orders-page {
-    padding: 28px 5%;
+    padding: 28px 0;
   }
 
   .orders-panel,

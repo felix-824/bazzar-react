@@ -12,7 +12,7 @@ import './Home.css'
 
 const categories = [
   {
-    title: 'Vegetables',
+    title: 'Fruits & Vegetables',
     value: ProductCollection.FRUIT_VEGETABLE,
     icon: '🥬',
   },
@@ -40,30 +40,6 @@ const categories = [
     title: 'Snacks',
     value: ProductCollection.SNACK,
     icon: '🍿',
-  },
-]
-
-const newsArticles = [
-  {
-    date: 'May 12, 2026',
-    title: 'How to Keep Fresh Greens Crisp for Longer',
-    text: 'Simple storage habits can help leafy vegetables stay fresh through the week.',
-    icon: '🥗',
-    className: 'news-vegetables',
-  },
-  {
-    date: 'May 18, 2026',
-    title: 'Easy Breakfast Ideas with Fresh Dairy',
-    text: 'Build quick morning meals with milk, yogurt, bread, and seasonal fruit.',
-    icon: '🥛',
-    className: 'news-breakfast',
-  },
-  {
-    date: 'May 24, 2026',
-    title: 'Smart Grocery Planning for Busy Families',
-    text: 'Plan a balanced weekly basket with fresh produce, bakery items, and snacks.',
-    icon: '🛒',
-    className: 'news-delivery',
   },
 ]
 
@@ -115,178 +91,138 @@ function Home() {
 
   return (
     <main className="home">
-        <section className="hero">
-          <div className="home-container hero-container">
-            <div className="hero-content">
-              <h1>Fresh groceries delivered to your door</h1>
+      <section className="hero">
+        <div className="home-container hero-container">
+          <div className="hero-content">
+            <h1>Fresh groceries delivered to your door</h1>
 
-              <p className="hero-description">
-                Shop fresh fruits, vegetables, bakery favorites, dairy, drinks,
-                and everyday groceries from Bazzar.
-              </p>
+            <p className="hero-description">
+              Shop fresh fruits, vegetables, bakery favorites, dairy, drinks,
+              and everyday groceries from Bazzar.
+            </p>
 
-              <Link to="/products" className="home-btn">
-                Shop Now <span>→</span>
-              </Link>
+            <Link to="/products" className="home-btn">
+              Shop Now <span>→</span>
+            </Link>
 
-              <div className="hero-benefits">
-                <div>
-                  <span>✓</span>
-                  <p>Best Quality</p>
-                  <small>Fresh products</small>
-                </div>
-                <div>
-                  <span>🚚</span>
-                  <p>Fast Delivery</p>
-                  <small>Quick service</small>
-                </div>
-                <div>
-                  <span>🏷</span>
-                  <p>Best Prices</p>
-                  <small>Save more</small>
-                </div>
+            <div className="hero-benefits">
+              <div>
+                <span>✓</span>
+                <p>Best Quality</p>
+                <small>Fresh products</small>
+              </div>
+              <div>
+                <span>🚚</span>
+                <p>Fast Delivery</p>
+                <small>Quick service</small>
+              </div>
+              <div>
+                <span>🏷</span>
+                <p>Best Prices</p>
+                <small>Save more</small>
               </div>
             </div>
-
-            <div className="hero-image">
-              <img src={groceryHero} alt="Fresh groceries" />
-            </div>
           </div>
-        </section>
 
-        <section className="home-section categories" id="categories">
-          <div className="home-container">
-            <div className="section-top">
-              <div className="section-heading section-heading-center">
+          <div className="hero-image">
+            <img src={groceryHero} alt="Fresh groceries" />
+          </div>
+        </div>
+      </section>
+
+      <section className="home-section categories" id="categories">
+        <div className="home-container">
+          <div className="section-top">
+            <div className="section-heading section-heading-center">
               <h2>Shop by Category</h2>
-              </div>
+            </div>
+          </div>
 
-              <Link to="/products" className="section-action">
-                View all categories →
+          <div className="category-list">
+            {categories.map((category) => (
+              <Link
+                key={category.value}
+                to={`/products?category=${category.value}`}
+                className="category-card"
+              >
+                <span>{category.icon}</span>
+                <h3>{category.title}</h3>
               </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="home-section featured-products">
+        <div className="home-container">
+          <div className="section-top">
+            <div className="section-heading section-heading-left">
+              <p>Fresh Picks</p>
+              <h2>Featured Products</h2>
             </div>
 
-            <div className="category-list">
-              {categories.map((category) => (
-                <Link
-                  key={category.value}
-                  to={`/products?category=${category.value}`}
-                  className="category-card"
-                >
-                  <span>{category.icon}</span>
-                  <h3>{category.title}</h3>
-                </Link>
+            <Link to="/products" className="home-outline-btn">
+              View all products →
+            </Link>
+          </div>
+
+          {featuredProducts.length > 0 ? (
+            <div className="featured-product-list">
+              {featuredProducts.map((product) => (
+                <ProductCard key={product._id} product={product} />
               ))}
             </div>
-          </div>
-        </section>
+          ) : (
+            <p className="home-empty">No featured products found.</p>
+          )}
+        </div>
+      </section>
 
-        <section className="home-section featured-products">
-          <div className="home-container">
-            <div className="section-top">
-              <div className="section-heading section-heading-left">
-                <p>Fresh Picks</p>
-                <h2>Featured Products</h2>
+      <section className="promo-section">
+        <div className="home-container">
+          <div className="promo-grid">
+            <article className="promo-card">
+              <div>
+                <p>Fresh Deals</p>
+                <h2>Fresh picks for every kitchen</h2>
+                <span>Stock up on produce, pantry favorites, and daily essentials.</span>
+                <Link to="/products">Shop Now</Link>
               </div>
+              <div className="promo-visual">🥬🍎</div>
+            </article>
 
-              <Link to="/products" className="home-outline-btn">
-                View all products →
-              </Link>
-            </div>
-
-            {featuredProducts.length > 0 ? (
-              <div className="featured-product-list">
-                {featuredProducts.map((product) => (
-                  <ProductCard key={product._id} product={product} />
-                ))}
+            <article className="promo-card promo-card-soft">
+              <div>
+                <p>Delivery</p>
+                <h2>Fresh groceries to your door</h2>
+                <span>Simple ordering for everyday products.</span>
+                <Link to="/products">Learn More</Link>
               </div>
-            ) : (
-              <p className="home-empty">No featured products found.</p>
-            )}
+              <div className="promo-visual">🛵</div>
+            </article>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="promo-section">
-          <div className="home-container">
-            <div className="promo-grid">
-              <article className="promo-card">
+      <section className="benefits-section">
+        <div className="home-container">
+          <div className="section-heading section-heading-center">
+            <h2>Why choose Bazzar?</h2>
+          </div>
+
+          <div className="benefits-list">
+            {benefits.map((benefit) => (
+              <div className="benefit-item" key={benefit.title}>
+                <span>{benefit.icon}</span>
                 <div>
-                  <p>Fresh Deals</p>
-                  <h2>On your first order</h2>
-                  <span>Use code BAZZAR20</span>
-                  <Link to="/products">Shop Now</Link>
+                  <h3>{benefit.title}</h3>
+                  <p>{benefit.text}</p>
                 </div>
-                <div className="promo-visual">🥬🍎</div>
-              </article>
-
-              <article className="promo-card promo-card-soft">
-                <div>
-                  <p>Delivery</p>
-                  <h2>Fresh groceries to your door</h2>
-                  <span>Simple ordering for everyday products.</span>
-                  <Link to="/products">Learn More</Link>
-                </div>
-                <div className="promo-visual">🛵</div>
-              </article>
-            </div>
+              </div>
+            ))}
           </div>
-        </section>
-
-        <section className="benefits-section">
-          <div className="home-container">
-            <div className="section-heading section-heading-center">
-              <h2>Why choose Bazzar?</h2>
-            </div>
-
-            <div className="benefits-list">
-              {benefits.map((benefit) => (
-                <div className="benefit-item" key={benefit.title}>
-                  <span>{benefit.icon}</span>
-                  <div>
-                    <h3>{benefit.title}</h3>
-                    <p>{benefit.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="home-section fresh-news">
-          <div className="home-container">
-            <div className="section-heading section-heading-center">
-              <h2>Fresh News</h2>
-            </div>
-
-            <div className="news-list">
-              {newsArticles.map((article) => (
-                <article className="news-card" key={article.title}>
-                  <div className={`news-card-visual ${article.className}`}>
-                    <span>{article.icon}</span>
-                  </div>
-
-                  <div className="news-card-body">
-                    <p>{article.date}</p>
-                    <h3>{article.title}</h3>
-                    <span>{article.text}</span>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="about-section" id="about">
-          <div className="home-container about-card">
-            <p>About Bazzar</p>
-            <h2>Fresh everyday grocery shopping made simple.</h2>
-            <span>
-              Bazzar helps customers shop fresh produce, dairy, bakery items,
-              drinks, snacks, and daily essentials with a clean and simple
-              grocery experience.
-            </span>
-          </div>
-        </section>
+        </div>
+      </section>
     </main>
   )
 }
