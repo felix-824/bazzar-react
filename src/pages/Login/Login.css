@@ -34,6 +34,7 @@
   border-bottom: 2px solid #e5e7eb;
   background-color: transparent;
   color: #1f2937;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -82,13 +83,13 @@
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  min-height: 36px;
+  min-height: 38px;
   padding: 8px 15px;
   border: 1px solid #16a34a;
   border-radius: 8px;
   background-color: #ffffff;
   color: #16a34a !important;
-  font-size: 13px !important;
+  font-size: 15px !important;
   font-weight: 700 !important;
   cursor: pointer;
 }
@@ -101,17 +102,21 @@
   display: grid;
   gap: 7px;
   color: #374151;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
 }
 
 .login-form input {
   width: 100%;
-  height: 44px;
+  height: 48px;
   padding: 0 14px;
   border: 1px solid #d1d5db;
   border-radius: 8px;
   color: #1f2937;
+  font-size: 16px;
+}
+
+.login-form input::placeholder {
   font-size: 15px;
 }
 
@@ -173,8 +178,9 @@
 }
 
 .login-submit {
-  min-height: 44px;
+  min-height: 48px;
   border-radius: 8px;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -196,7 +202,7 @@
 .login-signup {
   margin: 2px 0 0;
   color: #6b7280;
-  font-size: 13px;
+  font-size: 15px;
   text-align: center;
 }
 
@@ -205,6 +211,7 @@
   border: 0;
   background-color: transparent;
   color: #16a34a;
+  font-size: 15px;
   font-weight: 700;
 }
 
