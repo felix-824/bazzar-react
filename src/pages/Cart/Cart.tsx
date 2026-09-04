@@ -14,6 +14,41 @@ import './Cart.css'
 
 const API_URL = 'http://localhost:3001'
 const DELIVERY_FEE = 3000
+type PaymentMethod = 'CASH' | 'CARD'
+
+const paymentOptions: {
+  value: PaymentMethod
+  title: string
+  subtitle: string
+  icon: JSX.Element
+}[] = [
+  {
+    value: 'CASH',
+    title: 'Cash on Delivery',
+    subtitle: 'Pay when your order arrives',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 8h14a2 2 0 0 1 2 2v8H6a2 2 0 0 1-2-2V8z" />
+        <path d="M4 8V6a2 2 0 0 1 2-2h10v4" />
+        <path d="M16 13h4" />
+        <path d="M7 12h5" />
+      </svg>
+    ),
+  },
+  {
+    value: 'CARD',
+    title: 'Card Payment',
+    subtitle: 'Visa / Mastercard',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <path d="M3 10h18" />
+        <path d="M7 15h4" />
+        <path d="M15 15h2" />
+      </svg>
+    ),
+  },
+]
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat('ko-KR', {
@@ -72,6 +107,7 @@ function Cart() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [orderMessage, setOrderMessage] = useState('')
   const [orderError, setOrderError] = useState('')
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('CASH')
 
   const subtotal = cartItems.reduce(
     (total, item) => total + item.product.productPrice * item.quantity,
@@ -211,6 +247,36 @@ function Cart() {
             <span>Total</span>
             <strong>{formatPrice(total)}</strong>
           </div>
+
+          <section className="cart-payment" aria-labelledby="cart-payment-title">
+            <h2 id="cart-payment-title">Payment Method</h2>
+
+            <fieldset className="cart-payment-options">
+              {paymentOptions.map((option) => (
+                <label
+                  className={
+                    paymentMethod === option.value
+                      ? 'cart-payment-option selected'
+                      : 'cart-payment-option'
+                  }
+                  key={option.value}
+                >
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value={option.value}
+                    checked={paymentMethod === option.value}
+                    onChange={() => setPaymentMethod(option.value)}
+                  />
+                  <span className="cart-payment-icon">{option.icon}</span>
+                  <span className="cart-payment-text">
+                    <strong>{option.title}</strong>
+                    <small>{option.subtitle}</small>
+                  </span>
+                </label>
+              ))}
+            </fieldset>
+          </section>
 
           <button
             type="button"
