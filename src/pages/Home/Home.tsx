@@ -10,6 +10,8 @@ import dairyImage from '../../assets/categories/dairy.png'
 import fruitsVegetablesImage from '../../assets/categories/fruits-vegetables.png'
 import meatImage from '../../assets/categories/meat.png'
 import snacksImage from '../../assets/categories/snacks.png'
+import deliveryPromoImage from '../../assets/promos/delivery.png'
+import freshDealsPromoImage from '../../assets/promos/fresh-deals.png'
 import ProductCard from '../../components/ProductCard/ProductCard'
 import { setProducts } from '../../features/products/productSlice'
 import axiosInstance from '../../lib/axios'
@@ -53,22 +55,46 @@ const benefits = [
   {
     title: 'Quality Products',
     text: 'Fresh products selected with care.',
-    icon: '🛡',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3L5 6v5c0 4.5 3 8.6 7 10 4-1.4 7-5.5 7-10V6l-7-3z" />
+        <path d="M9 12l2 2 4-4" />
+      </svg>
+    ),
   },
   {
     title: 'Fast Delivery',
     text: 'Get your order delivered quickly.',
-    icon: '🚚',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 7h11v9H3z" />
+        <path d="M14 10h4l3 3v3h-7z" />
+        <path d="M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+        <path d="M17 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+      </svg>
+    ),
   },
   {
     title: 'Best Prices',
     text: 'Fair prices for everyday groceries.',
-    icon: '🏷',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 12l-8 8-9-9V4h7l10 8z" />
+        <path d="M7.5 7.5h.01" />
+      </svg>
+    ),
   },
   {
     title: 'Customer Support',
     text: 'We are here to help anytime.',
-    icon: '🎧',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 13a8 8 0 0 1 16 0" />
+        <path d="M5 13h3v6H5z" />
+        <path d="M16 13h3v6h-3z" />
+        <path d="M16 19h-3" />
+      </svg>
+    ),
   },
 ]
 
@@ -221,7 +247,9 @@ function Home() {
                 <span>Stock up on produce, pantry favorites, and daily essentials.</span>
                 <Link to="/products">Shop Now</Link>
               </div>
-              <div className="promo-visual">🥬🍎</div>
+              <div className="promo-visual">
+                <img src={freshDealsPromoImage} alt="" aria-hidden="true" />
+              </div>
             </article>
 
             <article className="promo-card promo-card-soft">
@@ -231,7 +259,9 @@ function Home() {
                 <span>Simple ordering for everyday products.</span>
                 <Link to="/products">Learn More</Link>
               </div>
-              <div className="promo-visual">🛵</div>
+              <div className="promo-visual">
+                <img src={deliveryPromoImage} alt="" aria-hidden="true" />
+              </div>
             </article>
           </div>
         </div>

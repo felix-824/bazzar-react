@@ -341,14 +341,24 @@
 }
 
 .promo-visual {
-  min-width: 138px;
-  height: 112px;
+  width: 168px;
+  min-width: 168px;
+  height: 122px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  padding: 8px;
+  overflow: visible;
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.7);
-  font-size: 54px;
+}
+
+.promo-visual img {
+  width: 135%;
+  height: 135%;
+  display: block;
+  object-fit: contain;
 }
 
 .benefits-section {
@@ -395,6 +405,17 @@
   color: #15803d;
   font-size: 24px;
   font-weight: 800;
+}
+
+.benefit-item > span svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .benefit-item h3 {
@@ -476,6 +497,12 @@
     gap: 20px;
   }
 
+  .promo-visual {
+    width: 150px;
+    min-width: 150px;
+    height: 108px;
+  }
+
   .benefit-item {
     padding: 22px 20px;
   }
@@ -513,6 +540,12 @@
   .promo-card {
     padding: 24px;
   }
+
+  .promo-visual {
+    width: 138px;
+    min-width: 138px;
+    height: 100px;
+  }
 }
 
 @media (max-width: 680px) {
@@ -538,6 +571,13 @@
   .promo-card {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .promo-visual {
+    width: min(220px, 100%);
+    min-width: 0;
+    height: 128px;
+    align-self: center;
   }
 
   .category-list {
