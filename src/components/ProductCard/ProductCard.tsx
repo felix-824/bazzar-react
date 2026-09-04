@@ -101,10 +101,6 @@ function ProductCard({ product }: ProductCardProps) {
 
         <h3>{product.productName}</h3>
 
-        <p className="product-card-rating">
-          <span>★</span> 4.8
-        </p>
-
         <p className="product-card-volume">
           {product.productVolume} {formatLabel(product.productUnit)}
         </p>

@@ -4,6 +4,12 @@ import { Link } from 'react-router-dom'
 
 import type { RootState } from '../../app/store'
 import groceryHero from '../../assets/grocery-hero.png'
+import bakeryImage from '../../assets/categories/bakery.png'
+import beveragesImage from '../../assets/categories/beverages.png'
+import dairyImage from '../../assets/categories/dairy.png'
+import fruitsVegetablesImage from '../../assets/categories/fruits-vegetables.png'
+import meatImage from '../../assets/categories/meat.png'
+import snacksImage from '../../assets/categories/snacks.png'
 import ProductCard from '../../components/ProductCard/ProductCard'
 import { setProducts } from '../../features/products/productSlice'
 import axiosInstance from '../../lib/axios'
@@ -14,32 +20,32 @@ const categories = [
   {
     title: 'Fruits & Vegetables',
     value: ProductCollection.FRUIT_VEGETABLE,
-    icon: '🥬',
+    image: fruitsVegetablesImage,
   },
   {
     title: 'Meat',
     value: ProductCollection.MEAT,
-    icon: '🥩',
+    image: meatImage,
   },
   {
     title: 'Dairy',
     value: ProductCollection.DAIRY,
-    icon: '🥛',
+    image: dairyImage,
   },
   {
     title: 'Bakery',
     value: ProductCollection.BAKERY,
-    icon: '🥖',
+    image: bakeryImage,
   },
   {
     title: 'Beverages',
     value: ProductCollection.BEVERAGE,
-    icon: '🧃',
+    image: beveragesImage,
   },
   {
     title: 'Snacks',
     value: ProductCollection.SNACK,
-    icon: '🍿',
+    image: snacksImage,
   },
 ]
 
@@ -73,12 +79,37 @@ function Home() {
     (state: RootState) => state.products.products
   )
 
-  const featuredProducts = products.slice(0, 4)
+  const selectedFeaturedProducts = []
+  const selectedCollections = new Set<string>()
+
+  for (const product of products) {
+    if (!selectedCollections.has(product.productCollection)) {
+      selectedFeaturedProducts.push(product)
+      selectedCollections.add(product.productCollection)
+    }
+
+    if (selectedFeaturedProducts.length === 4) {
+      break
+    }
+  }
+
+  const selectedFeaturedIds = new Set(
+    selectedFeaturedProducts.map((product) => product._id)
+  )
+  const fallbackFeaturedProducts = products.filter(
+    (product) => !selectedFeaturedIds.has(product._id)
+  )
+  const featuredProducts = [
+    ...selectedFeaturedProducts,
+    ...fallbackFeaturedProducts,
+  ].slice(0, 4)
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axiosInstance.get('/products')
+        const response = await axiosInstance.get('/products', {
+          params: { limit: 24 },
+        })
 
         dispatch(setProducts(response.data))
       } catch (error) {
@@ -145,7 +176,9 @@ function Home() {
                 to={`/products?category=${category.value}`}
                 className="category-card"
               >
-                <span>{category.icon}</span>
+                <span className="category-card-image">
+                  <img src={category.image} alt="" aria-hidden="true" />
+                </span>
                 <h3>{category.title}</h3>
               </Link>
             ))}

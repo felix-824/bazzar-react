@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 318px;
+  min-height: 316px;
   overflow: hidden;
 
   border: 1px solid #e7eee4;
@@ -48,8 +48,8 @@
 }
 
 .product-card-image {
-  height: 134px;
-  padding: 14px 16px 8px;
+  height: 152px;
+  padding: 16px 18px 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +61,7 @@
   width: 100%;
   height: 100%;
   max-width: 100%;
-  max-height: 112px;
+  max-height: 130px;
   object-fit: contain;
 }
 
@@ -79,39 +79,29 @@
 }
 
 .product-card-category {
-  margin: 0 0 3px;
+  margin: 0 0 4px;
   color: #15803d;
   font-size: 12px;
   font-weight: 700;
 }
 
 .product-card-body h3 {
-  min-height: 40px;
-  margin: 0 0 4px;
+  min-height: 42px;
+  margin: 0 0 6px;
   color: #172033;
-  font-size: 17px;
+  font-size: 18px;
+  font-weight: 800;
   line-height: 1.3;
 }
 
-.product-card-rating {
-  margin: 0 0 3px;
-  color: #6b7280;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.product-card-rating span {
-  color: #f59e0b;
-}
-
 .product-card-volume {
-  margin: 0 0 5px;
+  margin: 0 0 8px;
   color: #6b7280;
   font-size: 14px;
 }
 
 .product-card-price {
-  margin: 0 0 8px;
+  margin: auto 0 10px;
   color: #15803d;
   font-size: 19px;
   font-weight: 700;
@@ -139,7 +129,7 @@
 
 @media (min-width: 901px) and (max-width: 1440px) {
   .product-card {
-    min-height: 292px;
+    min-height: 294px;
   }
 
   .product-card-heart {
@@ -151,12 +141,12 @@
   }
 
   .product-card-image {
-    height: 118px;
-    padding: 12px 14px 6px;
+    height: 132px;
+    padding: 13px 15px 6px;
   }
 
   .product-card-image img {
-    max-height: 98px;
+    max-height: 112px;
   }
 
   .product-card-body {
@@ -164,29 +154,24 @@
   }
 
   .product-card-category {
-    margin-bottom: 2px;
+    margin-bottom: 3px;
     font-size: 11px;
   }
 
   .product-card-body h3 {
-    min-height: 36px;
-    margin-bottom: 3px;
-    font-size: 16px;
+    min-height: 38px;
+    margin-bottom: 5px;
+    font-size: 17px;
     line-height: 1.25;
   }
 
-  .product-card-rating {
-    margin-bottom: 2px;
-    font-size: 12px;
-  }
-
   .product-card-volume {
-    margin-bottom: 4px;
+    margin-bottom: 7px;
     font-size: 13px;
   }
 
   .product-card-price {
-    margin-bottom: 7px;
+    margin-bottom: 8px;
     font-size: 18px;
   }
 
